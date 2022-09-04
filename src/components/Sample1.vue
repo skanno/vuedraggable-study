@@ -1,7 +1,7 @@
 <template>
-  <div class="hello">
-    <draggable v-model="data.list" item-key="no" handle=".handle">
-      <template v-slot:item="{element}">
+  <div>
+    <draggable v-model="data.list" item-key="no" handle=".handle" @start="drag" @end="drop" @change="change">
+      <template v-slot:item="{ element }">
         <div class="drag-item">
           <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
             <div class="card-header handle">
@@ -9,8 +9,8 @@
               No.{{element.no}}
             </div>
             <div class="card-body">
-              <h5 class="card-title">{{element.title}}</h5>
-              <p class="card-text">{{element.body}}</p>
+              <h5 class="card-title">{{ element.title }}</h5>
+              <p class="card-text">{{ element.body }}</p>
             </div>
           </div>
         </div>
@@ -83,7 +83,25 @@ export default {
       ],
     });
 
-    return {data};
+    const drag = (event) => {
+      console.log('ドラッグ');
+    };
+
+    const drop = (event) => {
+      console.log('ドロップ');
+    };
+
+    const change = (event) => {
+      console.log(`${event.moved.oldIndex} -> ${event.moved.newIndex}`);
+      console.log(event.moved.element);
+    };
+
+    return {
+      data,
+      drag,
+      drop,
+      change
+    };
   }
 };
 </script>
