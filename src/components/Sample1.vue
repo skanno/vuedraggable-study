@@ -22,6 +22,12 @@
 <script>
 import { reactive } from 'vue';
 import draggable from 'vuedraggable';
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster({
+  position: 'top',
+  duration: 3000
+});
 
 export default {
   components: {
@@ -94,6 +100,7 @@ export default {
     const change = (event) => {
       console.log(`${event.moved.oldIndex} -> ${event.moved.newIndex}`);
       console.log(event.moved.element);
+      toaster.info(`「${event.moved.element.title}」が移動しました。`);
     };
 
     return {
